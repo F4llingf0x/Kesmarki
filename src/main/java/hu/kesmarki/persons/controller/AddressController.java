@@ -83,4 +83,7 @@ public class AddressController {
         return scanner.nextLine();
     }
 
+    public Address findAddressById(int x) {
+        return addressService.findAddressById(x);
+    }
 }

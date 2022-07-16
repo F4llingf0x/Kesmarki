@@ -5,6 +5,7 @@ import hu.kesmarki.persons.repository.AddressRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -22,5 +23,10 @@ public class AddressService {
 
     public Address modifyAddress(Address address) {
         return addressRepository.modifyAddress(address);
+    }
+
+    public Address findAddressById(int x) {
+        Optional<Address> address = addressRepository.findAddressById(x);
+        return address.get();
     }
 }

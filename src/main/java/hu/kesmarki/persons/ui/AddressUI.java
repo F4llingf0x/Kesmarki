@@ -6,11 +6,14 @@ import hu.kesmarki.persons.domain.Person;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Scanner;
 
 @Component
 public class AddressUI {
 
+    private Scanner scanner = new Scanner(System.in);
     private AddressController addressController;
+    private PersonUI personUI;
 
     private static final String NEW_LINE = "\r\n";
     private static final String TAB = "\t";
@@ -29,8 +32,9 @@ public class AddressUI {
             TAB + "2. Find address by person" + NEW_LINE +
             TAB + "3. Back";
 
-    public AddressUI(AddressController addressController) {
+    public AddressUI(AddressController addressController, PersonUI personUI) {
         this.addressController = addressController;
+        this.personUI = personUI;
     }
 
 
@@ -82,28 +86,46 @@ public class AddressUI {
         return isTerminated;
     }
 
-    public Person findAddress(String purpose) {
-        Person foundPerson = null;
-        System.out.println(FIND_PERSON_MESSAGE);
+    public Address findAddress(String purpose) {
+        Address foundAddress = null;
+        System.out.println(FIND_ADDRESS_MESSAGE);
         int x = askIntFromUser();
         switch (x) {
             case 2:
-                List<Person> personList = findPersonByName(purpose);
-                System.out.println(personList);
-                if (personList.size() == 1) {
-                    foundPerson = personList.get(0);
+                Person foundPerson = personUI.findPerson("find");
+                List<Address> addressList = foundPerson.getAddress();
+                System.out.println(addressList);
+                if (addressList.size() == 1) {
+                    foundAddress = addressList.get(0);
                     break;
                 }
             case 1:
-                foundPerson = findPersonById(purpose);
+                foundAddress = findAddressById(purpose);
                 break;
             case 3:
                 break;
         }
 
-        return foundPerson;
+        return foundAddress;
     }
 
 
+
+    private Address findAddressById(String purpose) {
+        System.out.println("Please enter the address' id to " + purpose);
+        int x = askIntFromUser();
+        Address foundAddress = addressController.findAddressById(x);
+        return foundAddress;
+    }
+
+    public int askIntFromUser() {
+        int userInt = scanner.nextInt();
+        scanner.nextLine();
+        return userInt;
+    }
+
+    public String askTextFromUser() {
+        return scanner.nextLine();
+    }
 
 }
