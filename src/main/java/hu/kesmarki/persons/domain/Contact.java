@@ -16,9 +16,9 @@ public class Contact {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String email;
-    private Integer phoneNumber;
-    private String linkedinProfile;
+    @Enumerated(value = EnumType.STRING)
+    private ContactType contactType;
+    private Integer number;
 
     private boolean isDeleted;
 

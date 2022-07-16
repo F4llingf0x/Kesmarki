@@ -16,11 +16,11 @@ public class MainUI {
 
     int x = 0;
 
-    private PersonsUI personsUI;
+    private PersonUI personUI;
     private Scanner scanner = new Scanner(System.in);
 
-    public MainUI(PersonsUI personsUI) {
-        this.personsUI = personsUI;
+    public MainUI(PersonUI personUI) {
+        this.personUI = personUI;
     }
 
     public int askIntFromUser() {
@@ -49,9 +49,9 @@ public class MainUI {
                 boolean isTerminated = false;
                 while (!isTerminated) {
                     System.out.println();
-                    System.out.println(personsUI.PERSON_MENU_MESSAGE);
+                    System.out.println(personUI.PERSON_MENU_MESSAGE);
                     x = askIntFromUser();
-                    isTerminated = personsUI.personMenu(x);
+                    isTerminated = personUI.personMenu(x);
                 }
                 break;
 

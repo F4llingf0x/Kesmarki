@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 @Component
-public class PersonsUI {
+public class PersonUI {
 
     private Scanner scanner = new Scanner(System.in);
 
@@ -33,20 +33,9 @@ public class PersonsUI {
 
     private PersonController personController;
 
-    public PersonsUI(PersonController personController) {
+    public PersonUI(PersonController personController) {
         this.personController = personController;
     }
-
-    public int askIntFromUser() {
-        int userInt = scanner.nextInt();
-        scanner.nextLine();
-        return userInt;
-    }
-
-    public String askTextFromUser() {
-        return scanner.nextLine();
-    }
-
 
     //TODO show addresses
     //TODO show contact to address
@@ -136,6 +125,16 @@ public class PersonsUI {
         System.out.println(personList.size() + " person has been found:");
         System.out.println();
         return personList;
+    }
+
+    public int askIntFromUser() {
+        int userInt = scanner.nextInt();
+        scanner.nextLine();
+        return userInt;
+    }
+
+    public String askTextFromUser() {
+        return scanner.nextLine();
     }
 
 

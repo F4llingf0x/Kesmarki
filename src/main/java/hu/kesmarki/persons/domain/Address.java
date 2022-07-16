@@ -18,10 +18,10 @@ public class Address {
     private Integer id;
 
     private String country;
-    private String state;
+    private String county;
     private String postalCode;
-    private String street;
-    private String number;
+    private String streetName;
+    private String houseNumber;
 
     private boolean isDeleted;
 

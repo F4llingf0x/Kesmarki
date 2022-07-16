@@ -2,11 +2,12 @@ package hu.kesmarki.persons.service;
 
 import hu.kesmarki.persons.domain.Person;
 import hu.kesmarki.persons.repository.PersonRepository;
+import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 
-@org.springframework.stereotype.Service
+@Service
 @Transactional
 public class PersonService {
 

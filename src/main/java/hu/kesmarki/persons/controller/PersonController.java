@@ -79,5 +79,6 @@ public class PersonController {
 
     public Person deletePerson(Person personToDelete) {
         return personService.deletePerson(personToDelete);
+        //TODO delete address, contact
     }
 }
