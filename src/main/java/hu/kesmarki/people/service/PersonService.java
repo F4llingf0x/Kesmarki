@@ -1,7 +1,7 @@
-package hu.kesmarki.persons.service;
+package hu.kesmarki.people.service;
 
-import hu.kesmarki.persons.domain.Person;
-import hu.kesmarki.persons.repository.PersonRepository;
+import hu.kesmarki.people.domain.Person;
+import hu.kesmarki.people.repository.PersonRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

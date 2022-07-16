@@ -1,7 +1,7 @@
-package hu.kesmarki.persons.controller;
+package hu.kesmarki.people.controller;
 
-import hu.kesmarki.persons.domain.Person;
-import hu.kesmarki.persons.service.PersonService;
+import hu.kesmarki.people.domain.Person;
+import hu.kesmarki.people.service.PersonService;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

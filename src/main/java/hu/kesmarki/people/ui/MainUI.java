@@ -1,4 +1,4 @@
-package hu.kesmarki.persons.ui;
+package hu.kesmarki.people.ui;
 
 import org.springframework.stereotype.Component;
 
@@ -17,10 +17,12 @@ public class MainUI {
     int x = 0;
 
     private PersonUI personUI;
+    private AddressUI addressUI;
     private Scanner scanner = new Scanner(System.in);
 
-    public MainUI(PersonUI personUI) {
+    public MainUI(PersonUI personUI, AddressUI addressUI) {
         this.personUI = personUI;
+        this.addressUI = addressUI;
     }
 
     public int askIntFromUser() {
@@ -46,18 +48,23 @@ public class MainUI {
     public void mainMenu(int value) {
         switch (value) {
             case 1:
-                boolean isTerminated = false;
-                while (!isTerminated) {
+                boolean isPersonMenuTerminated = false;
+                while (!isPersonMenuTerminated) {
                     System.out.println();
                     System.out.println(personUI.PERSON_MENU_MESSAGE);
                     x = askIntFromUser();
-                    isTerminated = personUI.personMenu(x);
+                    isPersonMenuTerminated = personUI.personMenu(x);
                 }
                 break;
 
             case 2:
-                System.out.println("Address actions");
-                break;
+                boolean isAddressMenuTerminated = false;
+                while (!isAddressMenuTerminated) {
+                    System.out.println();
+                    System.out.println(addressUI.ADDRESS_MENU_MESSAGE);
+                    x = askIntFromUser();
+                    isAddressMenuTerminated = addressUI.addressMenu(x);
+                }
 
             case 3:
                 System.out.println("Contact actions");

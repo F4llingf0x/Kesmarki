@@ -1,4 +1,4 @@
-package hu.kesmarki.persons.domain;
+package hu.kesmarki.people.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,7 +26,7 @@ public class Person {
 
     private boolean isDeleted;
 
-    @OneToMany(mappedBy = "person")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "person", cascade = CascadeType.MERGE)
     private List<Address> address;
 
     @Override

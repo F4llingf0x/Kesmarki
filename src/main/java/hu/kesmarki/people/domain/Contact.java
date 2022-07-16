@@ -1,4 +1,4 @@
-package hu.kesmarki.persons.domain;
+package hu.kesmarki.people.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,6 +24,5 @@ public class Contact {
 
     @ManyToOne
     private Address address;
-
 
 }

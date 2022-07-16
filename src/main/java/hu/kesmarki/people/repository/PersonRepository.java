@@ -1,6 +1,6 @@
-package hu.kesmarki.persons.repository;
+package hu.kesmarki.people.repository;
 
-import hu.kesmarki.persons.domain.Person;
+import hu.kesmarki.people.domain.Person;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

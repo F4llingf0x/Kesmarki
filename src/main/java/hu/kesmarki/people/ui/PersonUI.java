@@ -1,7 +1,7 @@
-package hu.kesmarki.persons.ui;
+package hu.kesmarki.people.ui;
 
-import hu.kesmarki.persons.controller.PersonController;
-import hu.kesmarki.persons.domain.Person;
+import hu.kesmarki.people.controller.PersonController;
+import hu.kesmarki.people.domain.Person;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -67,7 +67,7 @@ public class PersonUI {
 
             case 5:
                 List<Person> people = personController.findAllPeople();
-                System.out.println(people.size() + "person has been found");
+                System.out.println(people.size() + " person has been found");
                 System.out.println(people);
                 break;
 

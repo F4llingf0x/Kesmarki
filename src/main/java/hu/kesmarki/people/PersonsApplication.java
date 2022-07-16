@@ -1,6 +1,6 @@
-package hu.kesmarki.persons;
+package hu.kesmarki.people;
 
-import hu.kesmarki.persons.ui.MainUI;
+import hu.kesmarki.people.ui.MainUI;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -27,6 +27,10 @@ public class PersonsApplication implements CommandLineRunner {
 //            byte[] charset = str1.getBytes("UTF-8");
 //            String newstr = new String(charset, "UTF-8");
 //            System.out.println(newstr);
+
+    //TODO kivételkezelés
+        //TODO TESZTEK
+        //TODO adatbázisfeltöltés
 
 
     }

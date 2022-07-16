@@ -1,4 +1,4 @@
-package hu.kesmarki.persons;
+package hu.kesmarki.people;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

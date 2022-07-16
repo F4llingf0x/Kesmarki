@@ -1,10 +1,11 @@
-package hu.kesmarki.persons.repository;
+package hu.kesmarki.people.repository;
 
-import hu.kesmarki.persons.domain.Address;
+import hu.kesmarki.people.domain.Address;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -24,5 +25,13 @@ public class AddressRepository {
 
     public Optional<Address> findAddressById(int x) {
         return Optional.ofNullable(entityManager.find(Address.class, x));
+    }
+
+    public List<Address> findNotAssignedAddresses() {
+        return entityManager.createQuery("SELECT a FROM Address a " +
+                        "WHERE a.isDeleted = false " +
+                        "AND a.person IS NULL " +
+                        "ORDER BY a.country, a.county, a.streetName, a.houseNumber ASC ", Address.class)
+                .getResultList();
     }
 }

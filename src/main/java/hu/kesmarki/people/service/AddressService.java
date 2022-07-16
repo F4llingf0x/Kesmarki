@@ -1,10 +1,11 @@
-package hu.kesmarki.persons.service;
+package hu.kesmarki.people.service;
 
-import hu.kesmarki.persons.domain.Address;
-import hu.kesmarki.persons.repository.AddressRepository;
+import hu.kesmarki.people.domain.Address;
+import hu.kesmarki.people.repository.AddressRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,6 +28,17 @@ public class AddressService {
 
     public Address findAddressById(int x) {
         Optional<Address> address = addressRepository.findAddressById(x);
+        //TODO exceptionHandling
+        //TODO not deleted
         return address.get();
+    }
+
+    public List<Address> findNotAssignedAddresses() {
+        return addressRepository.findNotAssignedAddresses();
+    }
+
+    public Address deleteAddress(Address addressToDelete) {
+        addressToDelete.setDeleted(true);
+        return modifyAddress(addressToDelete);
     }
 }

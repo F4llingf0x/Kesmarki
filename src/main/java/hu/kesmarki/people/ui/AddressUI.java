@@ -1,8 +1,8 @@
-package hu.kesmarki.persons.ui;
+package hu.kesmarki.people.ui;
 
-import hu.kesmarki.persons.controller.AddressController;
-import hu.kesmarki.persons.domain.Address;
-import hu.kesmarki.persons.domain.Person;
+import hu.kesmarki.people.controller.AddressController;
+import hu.kesmarki.people.domain.Address;
+import hu.kesmarki.people.domain.Person;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -22,7 +22,8 @@ public class AddressUI {
             TAB + "1. Add address" + NEW_LINE +
             TAB + "2. Modify address" + NEW_LINE +
             TAB + "3. Assign to or change person" + NEW_LINE +
-            TAB + "4. List all addresses of person" + NEW_LINE +
+            TAB + "4. Find address by id" + NEW_LINE +
+            TAB + "5. List all addresses of person" + NEW_LINE +
             TAB + "6. List all not assigned addresses" + NEW_LINE +
             TAB + "7. Delete address" + NEW_LINE +
             TAB + "8. Back";
@@ -40,46 +41,54 @@ public class AddressUI {
 
     public boolean addressMenu(int value) {
         boolean isTerminated = false;
+        Address foundAddress = null;
         switch (value) {
             case 1:
                 addressController.addressBuilder(null);
                 break;
 
             case 2:
-                Address foundAddress;
+                foundAddress = findAddress("find");
                 if (foundAddress != null) {
                     addressController.addressBuilder(foundAddress);
-                }else {
-                    System.out.println("Person has not been found");
+                } else {
+                    System.out.println("Address has not been found");
                 }
                 break;
 
             case 3:
-                System.out.println(findAddressById("find"));
+                foundAddress = findAddressById("assign");
+                Person foundPerson = personUI.findPerson("assign");
+                foundAddress.setPerson(foundPerson);
+                addressController.modifyAddress(foundAddress);
                 break;
 
             case 4:
-                System.out.println(findPersonByName("find"));
-                //TODO show addresses
+                System.out.println(findAddressById("find"));
                 break;
 
             case 5:
-                List<Person> people = personController.findAllPeople();
-                System.out.println(people.size() + "person has been found");
-                System.out.println(people);
+                List<Address> addresses = personUI.findPerson("find").getAddress();
+                System.out.println(addresses.size() + " address has been found: ");
+                System.out.println(addresses);
                 break;
 
             case 6:
-                Person personToDelete = findPerson("delete");
-                if (personToDelete != null) {
-                    Person deletedPerson = personController.deletePerson(personToDelete);
-                    System.out.println();
-                    System.out.println(deletedPerson.getFirstName() + " " + deletedPerson.getLastName() +
-                            " has been deleted");
-                }
+                List<Address> addressList = addressController.findNotAssignedAddresses();
+                System.out.println(addressList.size() + " address has been found: ");
+                System.out.println(addressList);
                 break;
 
             case 7:
+                Address addressToDelete = findAddress("delete");
+                if (addressToDelete != null) {
+                    Address deletedAddress = addressController.deleteAddress(addressToDelete);
+                    System.out.println();
+                    System.out.println("Address has been deleted");
+                }
+                break;
+
+            case 8:
                 isTerminated = true;
                 break;
         }
@@ -108,7 +117,6 @@ public class AddressUI {
 
         return foundAddress;
     }
-
 
 
     private Address findAddressById(String purpose) {

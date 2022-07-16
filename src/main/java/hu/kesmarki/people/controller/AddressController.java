@@ -1,10 +1,10 @@
-package hu.kesmarki.persons.controller;
+package hu.kesmarki.people.controller;
 
-import hu.kesmarki.persons.domain.Address;
-import hu.kesmarki.persons.domain.Person;
-import hu.kesmarki.persons.service.AddressService;
+import hu.kesmarki.people.domain.Address;
+import hu.kesmarki.people.service.AddressService;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Scanner;
 
 @Component
@@ -33,6 +33,7 @@ public class AddressController {
         }
         System.out.println();
         address.setCountry(askTextFromUser());
+        System.out.println();
 
         dataRequest("county");
         if (addressIsPresent) {
@@ -40,6 +41,7 @@ public class AddressController {
         }
         System.out.println();
         address.setCounty(askTextFromUser());
+        System.out.println();
 
         dataRequest("postal code");
         if (addressIsPresent) {
@@ -47,6 +49,7 @@ public class AddressController {
         }
         System.out.println();
         address.setPostalCode(askTextFromUser());
+        System.out.println();
 
         dataRequest("street name");
         if (addressIsPresent) {
@@ -54,6 +57,7 @@ public class AddressController {
         }
         System.out.println();
         address.setStreetName(askTextFromUser());
+        System.out.println();
 
         dataRequest("house number");
         if (addressIsPresent) {
@@ -61,16 +65,17 @@ public class AddressController {
         }
         System.out.println();
         address.setHouseNumber(askTextFromUser());
+        System.out.println();
 
         if (!addressIsPresent) {
             System.out.println(addressService.addAddress(address));
         } else {
-            System.out.println(addressService.modifyAddress(address));
+            System.out.println(modifyAddress(address));
         }
     }
 
     private void dataRequest(String dataType) {
-        System.out.println("Please enter the " + dataType + " of the address");
+        System.out.print("Please enter the " + dataType + " of the address");
     }
 
     public int askIntFromUser() {
@@ -85,5 +90,17 @@ public class AddressController {
 
     public Address findAddressById(int x) {
         return addressService.findAddressById(x);
+    }
+
+    public List<Address> findNotAssignedAddresses() {
+        return addressService.findNotAssignedAddresses();
+    }
+
+    public Address deleteAddress(Address addressToDelete) {
+        return addressService.deleteAddress(addressToDelete);
+    }
+
+    public Address modifyAddress(Address addressToModify){
+        return addressService.modifyAddress(addressToModify);
     }
 }
