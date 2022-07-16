@@ -5,6 +5,7 @@ import hu.kesmarki.people.domain.ContactType;
 import hu.kesmarki.people.service.ContactService;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Scanner;
 
 @Component
@@ -30,8 +31,13 @@ public class ContactController {
     public void contactBuilder(Contact contact) {
 
         boolean contactIsPresent = (contact != null);
+        ContactType previousContactType = null;
         if (!contactIsPresent) {
             contact = new Contact();
+        }
+
+        if (contactIsPresent){
+            previousContactType = contact.getContactType();
         }
 
         System.out.println(CHOOSE_CONTACT_TYPE);
@@ -46,9 +52,10 @@ public class ContactController {
             System.out.println();
             System.out.print("Please enter the homing pigeon's serial number");
         }
-        if (contactIsPresent) {
+        if (contactIsPresent && (previousContactType.equals(contact.getContactType()))) {
             System.out.print(PREVIOUS_TEXT + contact.getNumber());
         }
+        System.out.println();
         contact.setNumber(askIntFromUser());
         System.out.println();
 
@@ -60,8 +67,13 @@ public class ContactController {
 
     }
 
-    private Contact modifyContact(Contact contact) {
-        contactService.modifyContact(contact);
+    public Contact modifyContact(Contact contact) {
+        return contactService.modifyContact(contact);
+    }
+
+
+    public Contact findContactById(int x) {
+        return contactService.findContactById(x);
     }
 
     public int askIntFromUser() {
@@ -75,4 +87,11 @@ public class ContactController {
     }
 
 
+    public List<Contact> findAllUnassignedContact() {
+        return contactService.findAllUnassignedContact();
+    }
+
+    public Contact deleteContact(Contact contactToDelete) {
+        return contactService.deleteContact(contactToDelete);
+    }
 }

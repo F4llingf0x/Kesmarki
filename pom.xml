@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>hu.kesmarki</groupId>
-	<artifactId>persons</artifactId>
+	<artifactId>people</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>persons</name>
+	<name>people</name>
 	<description>Person handler app</description>
 	<properties>
 		<java.version>17</java.version>

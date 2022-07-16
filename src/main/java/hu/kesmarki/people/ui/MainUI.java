@@ -18,11 +18,13 @@ public class MainUI {
 
     private PersonUI personUI;
     private AddressUI addressUI;
+    private ContactUI contactUI;
     private Scanner scanner = new Scanner(System.in);
 
-    public MainUI(PersonUI personUI, AddressUI addressUI) {
+    public MainUI(PersonUI personUI, AddressUI addressUI, ContactUI contactUI) {
         this.personUI = personUI;
         this.addressUI = addressUI;
+        this.contactUI = contactUI;
     }
 
     public int askIntFromUser() {
@@ -65,9 +67,16 @@ public class MainUI {
                     x = askIntFromUser();
                     isAddressMenuTerminated = addressUI.addressMenu(x);
                 }
+                break;
 
             case 3:
-                System.out.println("Contact actions");
+                boolean isContactMenuTerminated = false;
+                while (!isContactMenuTerminated) {
+                    System.out.println();
+                    System.out.println(contactUI.CONTACT_MENU_MESSAGE);
+                    x = askIntFromUser();
+                    isContactMenuTerminated = contactUI.contactMenu(x);
+                }
                 break;
 
             case 4:

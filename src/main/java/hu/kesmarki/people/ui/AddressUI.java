@@ -119,7 +119,7 @@ public class AddressUI {
     }
 
 
-    private Address findAddressById(String purpose) {
+    public Address findAddressById(String purpose) {
         System.out.println("Please enter the address' id to " + purpose);
         int x = askIntFromUser();
         Address foundAddress = addressController.findAddressById(x);

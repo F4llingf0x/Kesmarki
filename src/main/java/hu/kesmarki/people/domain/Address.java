@@ -42,8 +42,7 @@ public class Address {
                 TAB + "county:" + TAB + TAB + TAB + county + NEW_LINE +
                 TAB + "postalCode:" + TAB + TAB + postalCode + NEW_LINE +
                 TAB + "streetName:" + TAB + TAB + streetName + NEW_LINE +
-                TAB + "houseNumber:" + TAB + houseNumber + NEW_LINE +
-                NEW_LINE;
+                TAB + "houseNumber:" + TAB + houseNumber + NEW_LINE;
     }
 
 

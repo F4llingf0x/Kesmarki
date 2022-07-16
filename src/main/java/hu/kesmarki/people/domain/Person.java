@@ -1,5 +1,6 @@
 package hu.kesmarki.people.domain;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,7 +21,9 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotNull
     private String firstName;
+    @NotNull
     private String lastName;
     private String occupation;
 
