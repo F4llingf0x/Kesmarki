@@ -3,6 +3,7 @@ package hu.kesmarki.people.ui;
 import hu.kesmarki.people.controller.CommonCommands;
 import hu.kesmarki.people.controller.PersonController;
 import hu.kesmarki.people.domain.Person;
+import lombok.With;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -49,17 +50,21 @@ public class PersonUI extends CommonCommands {
                 Person foundPerson = findPerson("modify");
                 if (foundPerson != null) {
                     personController.personBuilder(foundPerson);
-                } else {
-                    System.out.println("Person has not been found");
                 }
                 break;
 
             case 3:
-                System.out.println(findPersonById("find"));
+                foundPerson = findPersonById("find");
+                if (foundPerson != null) {
+                    System.out.println(foundPerson);
+                }
                 break;
 
             case 4:
-                System.out.println(findPersonByName("find"));
+                List<Person> personList = findPersonByName("find");
+                if (!personList.isEmpty()) {
+                    System.out.println(personList);
+                }
                 break;
 
             case 5:
@@ -70,11 +75,43 @@ public class PersonUI extends CommonCommands {
 
             case 6:
                 Person personToDelete = findPerson("delete");
+                boolean deleteCascadeContact = false;
+                boolean deleteCascadeAddress = false;
                 if (personToDelete != null) {
-                    Person deletedPerson = personController.deletePerson(personToDelete);
                     System.out.println();
-                    System.out.println(deletedPerson.getFirstName() + " " + deletedPerson.getLastName() +
+                    System.out.println("Would you like to delete the corresponding addresses? (Y/N)");
+                    String text = null;
+                    while (text == null) {
+                        text = askYNFromUser();
+                        if (text != null && text.equalsIgnoreCase("y")) {
+                            deleteCascadeAddress = true;
+                        }
+                    }
+                    System.out.println();
+                    System.out.println("Would you like to delete the corresponding contacts? (Y/N)");
+                    text = null;
+                    while (text == null) {
+                        text = askYNFromUser();
+                        if (text != null && text.equalsIgnoreCase("y")) {
+                            deleteCascadeContact = true;
+                        }
+                    }
+
+                    Person deletedPerson = personController.deletePerson(
+                            personToDelete,
+                            deleteCascadeAddress,
+                            deleteCascadeContact
+                    );
+                    System.out.println();
+                    System.out.print(deletedPerson.getFirstName() + " " + deletedPerson.getLastName() +
                             " has been deleted");
+                    if (deleteCascadeAddress){
+                        System.out.print(", with addresses");
+                    }
+                    if (deleteCascadeContact) {
+                        System.out.print(", with contacts");
+                    }
+                    System.out.println();
                 }
                 break;
 
@@ -95,10 +132,14 @@ public class PersonUI extends CommonCommands {
         switch (x) {
             case 2:
                 List<Person> personList = findPersonByName(purpose);
-                System.out.println(personList);
                 if (personList.size() == 1) {
                     foundPerson = personList.get(0);
+                    System.out.println(foundPerson);
                     break;
+                } else if (personList.isEmpty()) {
+                    break;
+                } else {
+                    System.out.println(personList);
                 }
             case 1:
                 foundPerson = findPersonById(purpose);
@@ -124,8 +165,11 @@ public class PersonUI extends CommonCommands {
         String name = askTextFromUser();
         List<Person> personList = personController.findPersonByName(name);
         System.out.println();
-        System.out.println(personList.size() + " person has been found:");
-        System.out.println();
+        if (personList.isEmpty()) {
+            System.out.println("No person has been found");
+        } else {
+            System.out.println(personList.size() + " person has been found:");
+        }
         return personList;
     }
 

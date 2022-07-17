@@ -39,7 +39,7 @@ public class PersonRepository {
 
     public List<Person> findAllPeople() {
         return entityManager.createQuery("SELECT p FROM Person p " +
-                "WHERE p.isDeleted = false", Person.class)
+                        "WHERE p.isDeleted = false", Person.class)
                 .getResultList();
     }
 

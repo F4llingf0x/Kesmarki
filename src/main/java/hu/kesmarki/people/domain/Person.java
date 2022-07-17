@@ -34,7 +34,7 @@ public class Person {
 
     @Override
     public String toString() {
-        return  "id:" + TAB + id + NEW_LINE +
+        return "id:" + TAB + id + NEW_LINE +
                 TAB + "firstName:" + TAB + firstName + NEW_LINE +
                 TAB + "lastName:" + TAB + lastName + NEW_LINE +
                 TAB + "occupation:" + TAB + occupation + NEW_LINE;

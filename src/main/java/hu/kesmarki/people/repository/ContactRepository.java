@@ -1,6 +1,5 @@
 package hu.kesmarki.people.repository;
 
-import hu.kesmarki.people.domain.Address;
 import hu.kesmarki.people.domain.Contact;
 import org.springframework.stereotype.Repository;
 

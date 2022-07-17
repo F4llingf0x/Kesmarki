@@ -57,9 +57,10 @@ public class AddressUI extends CommonCommands {
 
             case 3:
                 foundAddress = findAddressById("assign");
-                if (foundAddress == null){
+                if (foundAddress == null) {
                     break;
                 }
+                //TODO hiba utan nem all vissza, vagy nem lép ki azonnal
                 Person foundPerson = personUI.findPerson("assign");
                 foundAddress.setPerson(foundPerson);
                 addressController.modifyAddress(foundAddress);
@@ -67,7 +68,7 @@ public class AddressUI extends CommonCommands {
 
             case 4:
                 foundAddress = findAddressById("find");
-                if (foundAddress != null){
+                if (foundAddress != null) {
                     System.out.println(foundAddress);
                 }
                 break;
@@ -86,10 +87,24 @@ public class AddressUI extends CommonCommands {
 
             case 7:
                 Address addressToDelete = findAddress("delete");
+                boolean deleteCascade = false;
                 if (addressToDelete != null) {
-                    Address deletedAddress = addressController.deleteAddress(addressToDelete);
                     System.out.println();
-                    System.out.println("Address has been deleted");
+                    System.out.println("Would you like to delete the corresponding contacts? (Y/N)");
+                    String text = null;
+                    while (text == null) {
+                        text = askYNFromUser();
+                        if (text != null && text.equalsIgnoreCase("y")) {
+                            deleteCascade = true;
+                        }
+                    }
+                    Address deletedAddress = addressController.deleteAddress(addressToDelete, deleteCascade);
+                    System.out.println();
+                    System.out.print("Address has been deleted");
+                    if (deleteCascade){
+                        System.out.println(" with contacts");
+                    }
+
                 }
                 break;
 
@@ -110,6 +125,9 @@ public class AddressUI extends CommonCommands {
         switch (x) {
             case 2:
                 Person foundPerson = personUI.findPerson("find");
+                if (foundPerson == null) {
+                    break;
+                }
                 List<Address> addressList = foundPerson.getAddress();
                 System.out.println(addressList);
                 if (addressList.size() == 1) {

@@ -28,9 +28,10 @@ public class PersonsApplication implements CommandLineRunner {
 //            String newstr = new String(charset, "UTF-8");
 //            System.out.println(newstr);
 
-    //TODO kivételkezelés
+        //TODO kivételkezelés
         //TODO TESZTEK
         //TODO adatbázisfeltöltés
+        //TODO DB átnevezés
 
 
     }

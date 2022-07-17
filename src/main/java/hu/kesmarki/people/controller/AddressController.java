@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 
 @Component
-public class AddressController extends CommonCommands{
+public class AddressController extends CommonCommands {
 
     private static final String PREVIOUS_TEXT = ", previous value: ";
 
@@ -87,11 +87,11 @@ public class AddressController extends CommonCommands{
         return addressService.findNotAssignedAddresses();
     }
 
-    public Address deleteAddress(Address addressToDelete) {
-        return addressService.deleteAddress(addressToDelete);
+    public Address deleteAddress(Address addressToDelete, boolean deleteCascade) {
+        return addressService.deleteAddress(addressToDelete, deleteCascade);
     }
 
-    public Address modifyAddress(Address addressToModify){
+    public Address modifyAddress(Address addressToModify) {
         return addressService.modifyAddress(addressToModify);
     }
 }

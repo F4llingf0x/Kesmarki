@@ -11,7 +11,6 @@ import java.util.Scanner;
 public class PersonController extends CommonCommands {
 
 
-
     private Scanner scanner = new Scanner(System.in);
     private PersonService personService;
 
@@ -66,8 +65,8 @@ public class PersonController extends CommonCommands {
         return personService.findAllPeople();
     }
 
-    public Person deletePerson(Person personToDelete) {
-        return personService.deletePerson(personToDelete);
-        //TODO delete address, contact
+    public Person deletePerson(Person personToDelete, boolean deleteCascadeAddress, boolean deleteCascadeContact) {
+        return personService.deletePerson(personToDelete, deleteCascadeAddress, deleteCascadeContact);
+
     }
 }

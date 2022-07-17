@@ -26,5 +26,13 @@ public class CommonCommands {
         return scanner.nextLine();
     }
 
+    public String askYNFromUser() {
+        String text = scanner.nextLine();
+        if (text.equalsIgnoreCase("y") || text.equalsIgnoreCase("n")){
+            return text;
+        }else{
+            return null;
+        }
+    }
 
 }

@@ -5,7 +5,6 @@ import hu.kesmarki.people.controller.ContactController;
 import hu.kesmarki.people.domain.Address;
 import hu.kesmarki.people.domain.Contact;
 import hu.kesmarki.people.domain.Person;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

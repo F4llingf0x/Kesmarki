@@ -1,6 +1,7 @@
 package hu.kesmarki.people.service;
 
 import hu.kesmarki.people.domain.Address;
+import hu.kesmarki.people.domain.Contact;
 import hu.kesmarki.people.repository.AddressRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +14,11 @@ import java.util.Optional;
 public class AddressService {
 
     private AddressRepository addressRepository;
+    private ContactService contactService;
 
-    public AddressService(AddressRepository addressRepository) {
+    public AddressService(AddressRepository addressRepository, ContactService contactService) {
         this.addressRepository = addressRepository;
+        this.contactService = contactService;
     }
 
     public Address addAddress(Address address) {
@@ -30,9 +33,9 @@ public class AddressService {
         Optional<Address> address = addressRepository.findAddressById(x);
         if (address.isPresent() && !address.get().isDeleted()) {
             return address.get();
-        }else {
+        } else {
             System.out.println("Address not found");
-        return null;
+            return null;
         }
     }
 
@@ -40,9 +43,14 @@ public class AddressService {
         return addressRepository.findNotAssignedAddresses();
     }
 
-    public Address deleteAddress(Address addressToDelete) {
+    public Address deleteAddress(Address addressToDelete, boolean deleteCascade) {
         addressToDelete.setDeleted(true);
+        if (deleteCascade){
+            for (Contact contact : addressToDelete.getContact()) {
+                contactService.deleteContact(contact);
+            }
+        }
         return modifyAddress(addressToDelete);
-        //TODO deleteContacts
+
     }
 }

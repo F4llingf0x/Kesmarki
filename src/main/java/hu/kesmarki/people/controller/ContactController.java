@@ -36,7 +36,7 @@ public class ContactController extends CommonCommands {
             contact = new Contact();
         }
 
-        if (contactIsPresent){
+        if (contactIsPresent) {
             previousContactType = contact.getContactType();
         }
 
