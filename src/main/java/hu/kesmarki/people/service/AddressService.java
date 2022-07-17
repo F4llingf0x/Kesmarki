@@ -45,11 +45,15 @@ public class AddressService {
 
     public Address deleteAddress(Address addressToDelete, boolean deleteCascade) {
         addressToDelete.setDeleted(true);
-        if (deleteCascade){
-            for (Contact contact : addressToDelete.getContact()) {
+        for (Contact contact : addressToDelete.getContact()) {
+            if (deleteCascade) {
                 contactService.deleteContact(contact);
+            } else {
+                contact.setAddress(null);
+                contactService.modifyContact(contact);
             }
         }
+
         return modifyAddress(addressToDelete);
 
     }

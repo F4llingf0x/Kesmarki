@@ -4,18 +4,18 @@ import hu.kesmarki.people.controller.CommonCommands;
 import hu.kesmarki.people.exceptionHandling.Exception;
 import org.springframework.stereotype.Component;
 
+import java.io.UnsupportedEncodingException;
+
 @Component
 public class MainUI extends CommonCommands {
     private static final String NEW_LINE = "\r\n";
     private static final String TAB = "\t";
+    private static final String WELCOME_MESSAGE  = "Welcome to the person handling application";
     public static String MAIN_MENU_MESSAGE = "Please choose from the following options:" + NEW_LINE +
             TAB + "1. Person actions" + NEW_LINE +
             TAB + "2. Address actions" + NEW_LINE +
             TAB + "3. Contact actions" + NEW_LINE +
             TAB + "4. Exit";
-
-    //TODO welcomeMessage
-    //TODO exitMessage
 
     int x = 0;
 
@@ -32,7 +32,8 @@ public class MainUI extends CommonCommands {
     }
 
     public void init() {
-
+        System.out.println();
+        System.out.println(TAB + WELCOME_MESSAGE);
         while (x != -1) {
             System.out.println();
             System.out.println(MAIN_MENU_MESSAGE);
@@ -74,13 +75,33 @@ public class MainUI extends CommonCommands {
                 break;
 
             case 4:
-                System.out.println(9);
+                System.out.println();
+                exitMessage();
                 x = -1;
                 break;
             default:
                 System.out.println();
                 System.out.print("Invalid option");
         }
+
+
+    }
+
+    private void exitMessage() {
+        try {
+            String str1 = "\u2122";
+            byte[] charset = str1.getBytes("UTF-8");
+            String newstr = new String(charset, "UTF-8");
+
+            System.out.print("Thank you for choosing Késmárki");
+            System.out.print(newstr);
+            System.out.println(" softwares");
+            System.out.println();
+
+        } catch (UnsupportedEncodingException e) {
+            System.out.print(" TM");
+        }
+
     }
 
 }

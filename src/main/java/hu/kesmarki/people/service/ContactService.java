@@ -28,9 +28,13 @@ public class ContactService {
     }
 
     public Contact findContactById(int x) {
-        //TODO kivételkezelés
         Optional<Contact> foundContact = contactRepository.findContactById(x);
-        return foundContact.get();
+        if (foundContact.isPresent() && !foundContact.get().isDeleted()) {
+            return foundContact.get();
+        }else {
+            System.out.println("Contact not found");
+            return null;
+        }
     }
 
     public List<Contact> findAllUnassignedContact() {

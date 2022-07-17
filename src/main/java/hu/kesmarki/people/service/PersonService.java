@@ -50,9 +50,13 @@ public class PersonService {
 
     public Person deletePerson(Person personToDelete, boolean deleteCascadeAddress, boolean deleteCascadeContact) {
         personToDelete.setDeleted(true);
-        if (deleteCascadeAddress){
-            for (Address address : personToDelete.getAddress()) {
+        for (Address address : personToDelete.getAddress()) {
+            if (deleteCascadeAddress) {
                 addressService.deleteAddress(address, deleteCascadeContact);
+            } else {
+                address.setPerson(null);
+                addressService.modifyAddress(address);
+
             }
         }
         return personRepository.modifyPerson(personToDelete);

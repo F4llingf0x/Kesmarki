@@ -22,6 +22,7 @@ public class Address {
 
     private String country;
     private String county;
+    private String city;
     private String postalCode;
     private String streetName;
     private String houseNumber;
@@ -40,10 +41,10 @@ public class Address {
         return "id:" + TAB + id + TAB + NEW_LINE +
                 TAB + "country:" + TAB + TAB + country + NEW_LINE +
                 TAB + "county:" + TAB + TAB + TAB + county + NEW_LINE +
+                TAB + "city:" + TAB + TAB + TAB + city + NEW_LINE +
                 TAB + "postalCode:" + TAB + TAB + postalCode + NEW_LINE +
                 TAB + "streetName:" + TAB + TAB + streetName + NEW_LINE +
                 TAB + "houseNumber:" + TAB + houseNumber + NEW_LINE;
     }
-
 
 }

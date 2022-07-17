@@ -20,7 +20,7 @@ public class ContactUI extends CommonCommands {
             TAB + "1. Add contact" + NEW_LINE +
             TAB + "2. Modify contact" + NEW_LINE +
             TAB + "3. Assign to or change address" + NEW_LINE +
-            TAB + "4. Find contact" + NEW_LINE +
+            TAB + "4. Find contacts" + NEW_LINE +
             TAB + "5. List all not assigned contacts" + NEW_LINE +
             TAB + "6. Delete contact" + NEW_LINE +
             TAB + "7. Back";
@@ -47,6 +47,7 @@ public class ContactUI extends CommonCommands {
     public boolean contactMenu(int value) {
         boolean isTerminated = false;
         Contact foundContact = null;
+        System.out.println();
         switch (value) {
             case 1:
                 contactController.contactBuilder(null);
@@ -70,7 +71,9 @@ public class ContactUI extends CommonCommands {
 
             case 4:
                 foundContact = findContact("find");
-                System.out.println(foundContact);
+                if (foundContact != null) {
+                    System.out.println(foundContact);
+                }
                 break;
 
             case 5:
@@ -123,6 +126,7 @@ public class ContactUI extends CommonCommands {
                     break;
                 }
                 System.out.println(contactList);
+                break;
             case 1:
                 foundContact = findContactById(purpose);
                 break;

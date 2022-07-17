@@ -3,6 +3,7 @@ package hu.kesmarki.people.controller;
 import hu.kesmarki.people.domain.Contact;
 import hu.kesmarki.people.domain.ContactType;
 import hu.kesmarki.people.service.ContactService;
+import org.springframework.dao.InvalidDataAccessResourceUsageException;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -59,10 +60,14 @@ public class ContactController extends CommonCommands {
         contact.setNumber(askIntFromUser());
         System.out.println();
 
-        if (!contactIsPresent) {
-            System.out.println(contactService.addContact(contact));
-        } else {
-            System.out.println(modifyContact(contact));
+        try {
+            if (!contactIsPresent) {
+                System.out.println(contactService.addContact(contact));
+            } else {
+                System.out.println(modifyContact(contact));
+            }
+        } catch (InvalidDataAccessResourceUsageException e) {
+            System.out.println("Invalid data input, record creation failed");
         }
 
     }

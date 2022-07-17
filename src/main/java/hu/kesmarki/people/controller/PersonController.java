@@ -2,6 +2,7 @@ package hu.kesmarki.people.controller;
 
 import hu.kesmarki.people.domain.Person;
 import hu.kesmarki.people.service.PersonService;
+import org.springframework.dao.InvalidDataAccessResourceUsageException;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -46,10 +47,14 @@ public class PersonController extends CommonCommands {
         System.out.println();
         person.setOccupation(askTextFromUser());
 
-        if (!personIsPresent) {
-            System.out.println(personService.addPerson(person));
-        } else {
-            System.out.println(personService.modifyPerson(person));
+        try {
+            if (!personIsPresent) {
+                System.out.println(personService.addPerson(person));
+            } else {
+                System.out.println(personService.modifyPerson(person));
+            }
+        } catch (InvalidDataAccessResourceUsageException e) {
+            System.out.println("Invalid data input, record creation failed");
         }
     }
 

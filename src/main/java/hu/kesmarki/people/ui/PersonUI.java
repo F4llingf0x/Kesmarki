@@ -3,7 +3,6 @@ package hu.kesmarki.people.ui;
 import hu.kesmarki.people.controller.CommonCommands;
 import hu.kesmarki.people.controller.PersonController;
 import hu.kesmarki.people.domain.Person;
-import lombok.With;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -41,6 +40,7 @@ public class PersonUI extends CommonCommands {
 
     public boolean personMenu(int value) {
         boolean isTerminated = false;
+        System.out.println();
         switch (value) {
             case 1:
                 personController.personBuilder(null);
@@ -85,17 +85,19 @@ public class PersonUI extends CommonCommands {
                         text = askYNFromUser();
                         if (text != null && text.equalsIgnoreCase("y")) {
                             deleteCascadeAddress = true;
+
+                            System.out.println();
+                            System.out.println("Would you like to delete the corresponding contacts? (Y/N)");
+                            text = null;
+                            while (text == null) {
+                                text = askYNFromUser();
+                                if (text != null && text.equalsIgnoreCase("y")) {
+                                    deleteCascadeContact = true;
+                                }
+                            }
                         }
                     }
-                    System.out.println();
-                    System.out.println("Would you like to delete the corresponding contacts? (Y/N)");
-                    text = null;
-                    while (text == null) {
-                        text = askYNFromUser();
-                        if (text != null && text.equalsIgnoreCase("y")) {
-                            deleteCascadeContact = true;
-                        }
-                    }
+
 
                     Person deletedPerson = personController.deletePerson(
                             personToDelete,
@@ -105,7 +107,7 @@ public class PersonUI extends CommonCommands {
                     System.out.println();
                     System.out.print(deletedPerson.getFirstName() + " " + deletedPerson.getLastName() +
                             " has been deleted");
-                    if (deleteCascadeAddress){
+                    if (deleteCascadeAddress) {
                         System.out.print(", with addresses");
                     }
                     if (deleteCascadeContact) {

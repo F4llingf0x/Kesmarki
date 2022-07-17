@@ -1,6 +1,7 @@
 package hu.kesmarki.people.repository;
 
 import hu.kesmarki.people.domain.Address;
+import hu.kesmarki.people.domain.Person;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -25,6 +26,10 @@ public class AddressRepository {
 
     public Optional<Address> findAddressById(int x) {
         return Optional.ofNullable(entityManager.find(Address.class, x));
+//        return Optional.ofNullable(entityManager.createQuery("SELECT a FROM Address a " +
+//                "WHERE a.id = :value ",Address.class)
+//                .setParameter("value", x)
+//                .getResultList().get(0));
     }
 
     public List<Address> findNotAssignedAddresses() {

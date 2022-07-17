@@ -6,7 +6,9 @@ import hu.kesmarki.people.domain.Address;
 import hu.kesmarki.people.domain.Person;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 @Component
@@ -43,6 +45,7 @@ public class AddressUI extends CommonCommands {
     public boolean addressMenu(int value) {
         boolean isTerminated = false;
         Address foundAddress = null;
+        System.out.println();
         switch (value) {
             case 1:
                 addressController.addressBuilder(null);
@@ -60,7 +63,6 @@ public class AddressUI extends CommonCommands {
                 if (foundAddress == null) {
                     break;
                 }
-                //TODO hiba utan nem all vissza, vagy nem lép ki azonnal
                 Person foundPerson = personUI.findPerson("assign");
                 foundAddress.setPerson(foundPerson);
                 addressController.modifyAddress(foundAddress);
@@ -74,9 +76,26 @@ public class AddressUI extends CommonCommands {
                 break;
 
             case 5:
-                List<Address> addresses = personUI.findPerson("find").getAddress();
-                System.out.println(addresses.size() + " address has been found: ");
-                System.out.println(addresses);
+                foundPerson = personUI.findPerson("find");
+                if (foundPerson == null){
+                    break;
+                }
+                List<Address> addresses = foundPerson.getAddress();
+                List<Address> addressNoDuplicates = new ArrayList<>();
+                for (Address address : addresses) {
+                    boolean isDuplicate = false;
+                    for (Address addressNoDuplicate : addressNoDuplicates) {
+                        if (Objects.equals(addressNoDuplicate.getId(), address.getId())){
+                            isDuplicate = true;
+                        }
+                    }
+                    if (!isDuplicate){
+                        addressNoDuplicates.add(address);
+                    }
+                }
+
+                System.out.println(addressNoDuplicates.size() + " address has been found: ");
+                System.out.println(addressNoDuplicates);
                 break;
 
             case 6:

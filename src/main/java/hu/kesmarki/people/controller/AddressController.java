@@ -2,6 +2,7 @@ package hu.kesmarki.people.controller;
 
 import hu.kesmarki.people.domain.Address;
 import hu.kesmarki.people.service.AddressService;
+import org.springframework.dao.InvalidDataAccessResourceUsageException;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -44,6 +45,14 @@ public class AddressController extends CommonCommands {
         address.setCounty(askTextFromUser());
         System.out.println();
 
+        dataRequest("city");
+        if (addressIsPresent) {
+            System.out.print(PREVIOUS_TEXT + address.getCity());
+        }
+        System.out.println();
+        address.setCity(askTextFromUser());
+        System.out.println();
+
         dataRequest("postal code");
         if (addressIsPresent) {
             System.out.print(PREVIOUS_TEXT + address.getPostalCode());
@@ -68,10 +77,15 @@ public class AddressController extends CommonCommands {
         address.setHouseNumber(askTextFromUser());
         System.out.println();
 
-        if (!addressIsPresent) {
-            System.out.println(addressService.addAddress(address));
-        } else {
-            System.out.println(modifyAddress(address));
+        try {
+
+            if (!addressIsPresent) {
+                System.out.println(addressService.addAddress(address));
+            } else {
+                System.out.println(modifyAddress(address));
+            }
+        } catch (InvalidDataAccessResourceUsageException e) {
+            System.out.println("Invalid data input, record creation failed");
         }
     }
 
