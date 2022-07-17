@@ -26,10 +26,6 @@ public class AddressRepository {
 
     public Optional<Address> findAddressById(int x) {
         return Optional.ofNullable(entityManager.find(Address.class, x));
-//        return Optional.ofNullable(entityManager.createQuery("SELECT a FROM Address a " +
-//                "WHERE a.id = :value ",Address.class)
-//                .setParameter("value", x)
-//                .getResultList().get(0));
     }
 
     public List<Address> findNotAssignedAddresses() {
