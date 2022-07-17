@@ -7,8 +7,9 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Scanner;
 
+
 @Component
-public class AddressController {
+public class AddressController extends CommonCommands{
 
     private static final String PREVIOUS_TEXT = ", previous value: ";
 
@@ -76,16 +77,6 @@ public class AddressController {
 
     private void dataRequest(String dataType) {
         System.out.print("Please enter the " + dataType + " of the address");
-    }
-
-    public int askIntFromUser() {
-        int userInt = scanner.nextInt();
-        scanner.nextLine();
-        return userInt;
-    }
-
-    public String askTextFromUser() {
-        return scanner.nextLine();
     }
 
     public Address findAddressById(int x) {

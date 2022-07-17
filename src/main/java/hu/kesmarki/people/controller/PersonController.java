@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 @Component
-public class PersonController {
+public class PersonController extends CommonCommands {
 
 
 
@@ -17,17 +17,6 @@ public class PersonController {
 
     public PersonController(PersonService personService) {
         this.personService = personService;
-    }
-
-
-    public int askIntFromUser() {
-        int userInt = scanner.nextInt();
-        scanner.nextLine();
-        return userInt;
-    }
-
-    public String askTextFromUser() {
-        return scanner.nextLine();
     }
 
     public void personBuilder(Person person) {

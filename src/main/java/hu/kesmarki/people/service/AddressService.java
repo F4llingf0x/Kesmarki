@@ -28,9 +28,12 @@ public class AddressService {
 
     public Address findAddressById(int x) {
         Optional<Address> address = addressRepository.findAddressById(x);
-        //TODO exceptionHandling
-        //TODO not deleted
-        return address.get();
+        if (address.isPresent() && !address.get().isDeleted()) {
+            return address.get();
+        }else {
+            System.out.println("Address not found");
+        return null;
+        }
     }
 
     public List<Address> findNotAssignedAddresses() {
@@ -40,5 +43,6 @@ public class AddressService {
     public Address deleteAddress(Address addressToDelete) {
         addressToDelete.setDeleted(true);
         return modifyAddress(addressToDelete);
+        //TODO deleteContacts
     }
 }

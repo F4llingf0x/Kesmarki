@@ -1,5 +1,6 @@
 package hu.kesmarki.people.ui;
 
+import hu.kesmarki.people.controller.CommonCommands;
 import hu.kesmarki.people.controller.PersonController;
 import hu.kesmarki.people.domain.Person;
 import org.springframework.stereotype.Component;
@@ -8,7 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 @Component
-public class PersonUI {
+public class PersonUI extends CommonCommands {
 
     private Scanner scanner = new Scanner(System.in);
 
@@ -37,9 +38,6 @@ public class PersonUI {
         this.personController = personController;
     }
 
-    //TODO show addresses
-    //TODO show contact to address
-
     public boolean personMenu(int value) {
         boolean isTerminated = false;
         switch (value) {
@@ -51,7 +49,7 @@ public class PersonUI {
                 Person foundPerson = findPerson("modify");
                 if (foundPerson != null) {
                     personController.personBuilder(foundPerson);
-                }else {
+                } else {
                     System.out.println("Person has not been found");
                 }
                 break;
@@ -62,7 +60,6 @@ public class PersonUI {
 
             case 4:
                 System.out.println(findPersonByName("find"));
-                //TODO show addresses
                 break;
 
             case 5:
@@ -84,6 +81,9 @@ public class PersonUI {
             case 7:
                 isTerminated = true;
                 break;
+            default:
+                System.out.println();
+                System.out.print("Invalid option");
         }
         return isTerminated;
     }
@@ -105,6 +105,9 @@ public class PersonUI {
                 break;
             case 3:
                 break;
+            default:
+                System.out.println();
+                System.out.print("Invalid option");
         }
 
         return foundPerson;
@@ -113,8 +116,7 @@ public class PersonUI {
     private Person findPersonById(String purpose) {
         System.out.println("Please enter the person's id to " + purpose);
         x = askIntFromUser();
-        Person foundPerson = personController.findPersonById(x);
-        return foundPerson;
+        return personController.findPersonById(x);
     }
 
     private List<Person> findPersonByName(String purpose) {
@@ -126,16 +128,5 @@ public class PersonUI {
         System.out.println();
         return personList;
     }
-
-    public int askIntFromUser() {
-        int userInt = scanner.nextInt();
-        scanner.nextLine();
-        return userInt;
-    }
-
-    public String askTextFromUser() {
-        return scanner.nextLine();
-    }
-
 
 }

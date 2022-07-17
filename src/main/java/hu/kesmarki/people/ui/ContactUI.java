@@ -1,16 +1,18 @@
 package hu.kesmarki.people.ui;
 
+import hu.kesmarki.people.controller.CommonCommands;
 import hu.kesmarki.people.controller.ContactController;
 import hu.kesmarki.people.domain.Address;
 import hu.kesmarki.people.domain.Contact;
 import hu.kesmarki.people.domain.Person;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Scanner;
 
 @Component
-public class ContactUI {
+public class ContactUI extends CommonCommands {
 
     private static final String NEW_LINE = "\r\n";
     private static final String TAB = "\t";
@@ -91,6 +93,9 @@ public class ContactUI {
             case 7:
                 isTerminated = true;
                 break;
+            default:
+                System.out.println();
+                System.out.print("Invalid option");
         }
         return isTerminated;
     }
@@ -124,6 +129,9 @@ public class ContactUI {
                 break;
             case 4:
                 break;
+            default:
+                System.out.println();
+                System.out.print("Invalid option");
         }
 
         return foundContact;
@@ -134,16 +142,5 @@ public class ContactUI {
         int x = askIntFromUser();
         return contactController.findContactById(x);
     }
-
-    public int askIntFromUser() {
-        int userInt = scanner.nextInt();
-        scanner.nextLine();
-        return userInt;
-    }
-
-    public String askTextFromUser() {
-        return scanner.nextLine();
-    }
-
 
 }

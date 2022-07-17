@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 @Component
-public class ContactController {
+public class ContactController extends CommonCommands {
 
     private static final String NEW_LINE = "\r\n";
     private static final String TAB = "\t";
@@ -74,16 +74,6 @@ public class ContactController {
 
     public Contact findContactById(int x) {
         return contactService.findContactById(x);
-    }
-
-    public int askIntFromUser() {
-        int userInt = scanner.nextInt();
-        scanner.nextLine();
-        return userInt;
-    }
-
-    public String askTextFromUser() {
-        return scanner.nextLine();
     }
 
 

@@ -1,6 +1,7 @@
 package hu.kesmarki.people.ui;
 
 import hu.kesmarki.people.controller.AddressController;
+import hu.kesmarki.people.controller.CommonCommands;
 import hu.kesmarki.people.domain.Address;
 import hu.kesmarki.people.domain.Person;
 import org.springframework.stereotype.Component;
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 
 @Component
-public class AddressUI {
+public class AddressUI extends CommonCommands {
 
     private Scanner scanner = new Scanner(System.in);
     private AddressController addressController;
@@ -51,20 +52,24 @@ public class AddressUI {
                 foundAddress = findAddress("find");
                 if (foundAddress != null) {
                     addressController.addressBuilder(foundAddress);
-                } else {
-                    System.out.println("Address has not been found");
                 }
                 break;
 
             case 3:
                 foundAddress = findAddressById("assign");
+                if (foundAddress == null){
+                    break;
+                }
                 Person foundPerson = personUI.findPerson("assign");
                 foundAddress.setPerson(foundPerson);
                 addressController.modifyAddress(foundAddress);
                 break;
 
             case 4:
-                System.out.println(findAddressById("find"));
+                foundAddress = findAddressById("find");
+                if (foundAddress != null){
+                    System.out.println(foundAddress);
+                }
                 break;
 
             case 5:
@@ -91,6 +96,9 @@ public class AddressUI {
             case 8:
                 isTerminated = true;
                 break;
+            default:
+                System.out.println();
+                System.out.print("Invalid option");
         }
         return isTerminated;
     }
@@ -113,6 +121,8 @@ public class AddressUI {
                 break;
             case 3:
                 break;
+            default:
+                System.out.println();
         }
 
         return foundAddress;
@@ -126,14 +136,5 @@ public class AddressUI {
         return foundAddress;
     }
 
-    public int askIntFromUser() {
-        int userInt = scanner.nextInt();
-        scanner.nextLine();
-        return userInt;
-    }
-
-    public String askTextFromUser() {
-        return scanner.nextLine();
-    }
 
 }
